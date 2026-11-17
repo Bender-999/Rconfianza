@@ -1,2 +1,2 @@
 # Rconfianza
-Modela de identificación de parametro mediante región de confianza.
+Modela de identificacion de parametro mediante region de confianza.
