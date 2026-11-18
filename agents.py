@@ -46,7 +46,8 @@ def multistart(num_agentes, rango, nombre_parametro, varref, timeref, salida,
     cfg = {"nombre_parametro": nombre_parametro, "varref": varref, "timeref": timeref,
            "salida": salida, "h": h, "tol": tol, "nmax": nmax, "r0": r0}
 
-    nucleos = os.cpu_count() or 2                       # cpu_count() puede devolver None
+    nucleos = os.cpu_count() or 2  
+    print(f"Numero de nucleos:{nucleos} ")                     # cpu_count() puede devolver None
     n_procesos = min(num_agentes, max(1, nucleos - 1))
 
     with ProcessPoolExecutor(max_workers=n_procesos,
