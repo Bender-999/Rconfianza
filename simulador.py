@@ -38,7 +38,7 @@ def simular(parametros: dict, t: np.ndarray, salida: str) -> np.ndarray:
     #separamos salidas del tiempo
     res_salida = res[salida]
     t_sim = res["time"]
-    #interpolacion de salidas en los puntos de timepo dado
+    #interpolacion de salidas en los puntos de tiempo dado
     resinterp = np.interp(t,t_sim,res_salida)
     return resinterp
 
