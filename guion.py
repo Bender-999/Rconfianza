@@ -5,6 +5,7 @@ import simulador
 import generarfmu
 import agents
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 # --- Problema ---
 parametros = "Cd"
@@ -45,6 +46,6 @@ if __name__ == "__main__":
     cds_finales = [r[0] for r in resultados]
     print(f"Media de valores fianles = {sp.stats.trim_mean(cds_finales,0.2)}")
     print(f"Desviación típica de valores finales={np.std(cds_finales)}")
+    plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
     plt.show()
-
     simulador.cerrar()

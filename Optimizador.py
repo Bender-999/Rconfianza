@@ -20,6 +20,7 @@ def mini(x0,nombre_parametro:str,varref,timeref,salida: str,h,tol,nmax,r0,r0max=
     n=0
     residuo=1.0
     residuolist=np.zeros(nmax)
+    xhist=np.zeros(nmax)
     if r0max==None:
         r0max=4*r0
     global _b,_c
@@ -70,6 +71,11 @@ def mini(x0,nombre_parametro:str,varref,timeref,salida: str,h,tol,nmax,r0,r0max=
         #print(term_avance)
         
         x0=x0-term_avance
+        
+        if x0 in xhist:
+            r0=r0/4
+        xhist[n]=x0
+        
         if x0<=0:
             x0=0
         n+=1
