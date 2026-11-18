@@ -22,7 +22,7 @@ def _tarea(x0):
     """Una tarea: optimiza desde x0 con la configuración común."""
     c = _cfg
     # ↓ ÚNICA línea que depende de tu Optimizador.min: el orden tiene que ser el de su definición
-    return Optimizador.min(x0, c["nombre_parametro"], c["varref"], c["timeref"], c["salida"],
+    return Optimizador.mini(x0, c["nombre_parametro"], c["varref"], c["timeref"], c["salida"],
                            c["h"], c["tol"], c["nmax"], c["r0"])
 
 
@@ -47,7 +47,7 @@ def multistart(num_agentes, rango, nombre_parametro, varref, timeref, salida,
            "salida": salida, "h": h, "tol": tol, "nmax": nmax, "r0": r0}
 
     nucleos = os.cpu_count() or 2  
-    print(f"Numero de nucleos:{nucleos} ")                     # cpu_count() puede devolver None
+    #print(f"Numero de nucleos:{nucleos} ")                     # cpu_count() puede devolver None
     n_procesos = min(num_agentes, max(1, nucleos - 1))
 
     with ProcessPoolExecutor(max_workers=n_procesos,

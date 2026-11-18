@@ -1,5 +1,4 @@
 import scipy as sp
-import simulador as sm
 
 def fobj(varref,timeref,var,varc=None):
     #si no se ha introducido o es 0 la varcaracterística, la defino como la inicial.

@@ -1,5 +1,6 @@
 import time
 import numpy as np
+import scipy as sp
 import simulador
 import generarfmu
 import agents
@@ -12,9 +13,9 @@ cd_real = 0.7                         # con el que se generan los datos de prueb
 timeref = np.linspace(0, 10, 1001)    # paso 0.01 s exacto
 
 # --- Optimizador ---
-h = 1e-2          # paso de las diferencias finitas
+h = 1e-4          # paso de las diferencias finitas
 tol = 1e-6        # se para cuando el paso es menor que tol*(1+|Cd|)
-nitermax = 50
+nitermax = 70
 r0 = 0.25          # radio inicial de la region de confianza
 
 # --- Multistart ---
@@ -31,10 +32,19 @@ if __name__ == "__main__":
     x0s, resultados = agents.multistart(
         num_agentes=num_agentes, rango=rango,
         nombre_parametro=parametros, varref=thetaref, timeref=timeref, salida=salida,
-        h=h, tol=tol, nmax=nitermax, r0=r0, modo="aleatorio")
+        h=h, tol=tol, nmax=nitermax, r0=r0, modo="lineal")
     print(f"Tiempo total: {time.perf_counter() - t0:.1f} s")
 
-    for x0, r in zip(x0s, resultados):
-        print(f"x0 = {x0:.3f}  ->  {r}")
+    for x0, (Cd_final,residuo) in zip(x0s, resultados):
+        print(f"x0 = {x0:.3f}  ->  {Cd_final}")
+
+        plt.semilogy(residuo)
+        plt.plot(residuo)
+        plt.xlabel("Iteración")
+        plt.ylabel("Residuo")
+    cds_finales = [r[0] for r in resultados]
+    print(f"Media de valores fianles = {sp.stats.trim_mean(cds_finales,0.2)}")
+    print(f"Desviación típica de valores finales={np.std(cds_finales)}")
+    plt.show()
 
     simulador.cerrar()
