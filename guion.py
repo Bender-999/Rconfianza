@@ -33,13 +33,13 @@ if __name__ == "__main__":
     x0s, resultados = agents.multistart(
         num_agentes=num_agentes, rango=rango,
         nombre_parametro=parametros, varref=thetaref, timeref=timeref, salida=salida,
-        h=h, tol=tol, nmax=nitermax, r0=r0, modo="lineal")
+        h=h, tol=tol, nmax=nitermax, r0=r0, modo="aleatorio")
     print(f"Tiempo total: {time.perf_counter() - t0:.1f} s")
 
     for x0, (Cd_final,residuo) in zip(x0s, resultados):
         print(f"x0 = {x0:.3f}  ->  {Cd_final}")
 
-        plt.semilogy(residuo)
+        #plt.semilogy(residuo)
         plt.plot(residuo)
         plt.xlabel("Iteración")
         plt.ylabel("Residuo")
