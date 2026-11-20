@@ -1,6 +1,7 @@
 import time
 import numpy as np
 import scipy as sp
+import pandas as pd
 import simulador
 import generarfmu
 import agents
@@ -27,7 +28,10 @@ rango = (0.2, 3.0)
 if __name__ == "__main__":
     generarfmu.asegurar_fmu()
     simulador.cargar()
-    thetaref = simulador.simular({parametros: cd_real}, timeref, salida)
+    df = pd.read_csv('Pendulo_bola_porexpan_theta.txt',sep=r'\s+')
+    timeref = df["t"]
+    thetaref = df["theta"]
+    #thetaref = simulador.simular({parametros: cd_real}, timeref, salida)
 
     t0 = time.perf_counter()
     x0s, resultados = agents.multistart(
