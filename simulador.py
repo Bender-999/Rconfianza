@@ -29,10 +29,12 @@ def simular(parametros: dict, t: np.ndarray, salida: str) -> np.ndarray:
     np.ndarray
         Valores de `salida` en cada instante de `t`.
     """
+    param_fis={"L":0.4,"M":0.005,"A":(0.04**2)*np.pi,"Theta":0.981}
+    parametros_n ={**parametros,**param_fis}
     # Reinicio la simulacion antes de volver a simularla
     _fmu.reset()
     # Simula con los parametros dados, y salidas dadas, en el tiempo especificado
-    res = fmpy.simulate_fmu(filename=config.UNZIP,model_description=_md,fmu_instance=_fmu,start_values=parametros,
+    res = fmpy.simulate_fmu(filename=config.UNZIP,model_description=_md,fmu_instance=_fmu,start_values=parametros_n,
                             start_time=t[0],stop_time=t[-1],output=[salida],relative_tolerance=1e-8,
                             output_interval=t[1]-t[0])
     #separamos salidas del tiempo

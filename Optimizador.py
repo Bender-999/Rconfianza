@@ -19,13 +19,14 @@ def comparar(fx,fx0,taylorx):
 def mini(x0,nombre_parametro:str,varref,timeref,salida: str,h,tol,nmax,r0,r0max=None):
     n=0
     residuo=1.0
+    dresiduo=1.0
     residuolist=np.zeros(nmax)
     xhist=np.zeros(nmax)
     if r0max==None:
         r0max=4*r0
     global _b,_c
 
-    while residuo >tol and n<nmax:
+    while dresiduo >tol and n<nmax:
         dxmas={nombre_parametro:x0+h}
         dxmenos={nombre_parametro:x0-h}
         dx0={nombre_parametro:x0}
@@ -39,7 +40,8 @@ def mini(x0,nombre_parametro:str,varref,timeref,salida: str,h,tol,nmax,r0,r0max=
         res0 = id.fobj(varref,timeref,var0)
         residuo = id.fobj(varref,timeref,var0)
         residuolist[n]=residuo
-        if residuo<tol:
+        dresiduo=abs(residuolist[n]-residuolist[n-1])
+        if dresiduo<tol:
             break
 
         _b,_c = id.coef_taylor(resmas,res0,resmenos,h)
