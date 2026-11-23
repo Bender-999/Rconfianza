@@ -20,7 +20,7 @@ A=(0.004**2)*np.pi
 
 # --- Optimizador ---
 h = 1e-4          # paso de las diferencias finitas
-tol = 1e-6        # se para cuando el paso es menor que tol*(1+|Cd|)
+tol = 1e-8        # se para cuando el paso es menor que tol*(1+|Cd|)
 nitermax = 70
 r0 = 0.25          # radio inicial de la region de confianza
 
@@ -34,10 +34,12 @@ if __name__ == "__main__":
     simulador.cargar()
     df = pd.read_csv('Pendulo_bola_porexpan_theta.txt',sep=r'\s+',decimal=",")
     timeref = df["t"].to_numpy()
+    timeref = timeref[:182]
     thetaref = df["theta"].to_numpy()
+    thetaref= thetaref[:182]
     #thetaref = simulador.simular({parametros: cd_real}, timeref, salida)
-    #plt.plot(timeref,thetaref)
-    #plt.show()
+    plt.plot(timeref,thetaref)
+    plt.show()
     t0 = time.perf_counter()
     x0s, resultados = agents.multistart(
         num_agentes=num_agentes, rango=rango,
